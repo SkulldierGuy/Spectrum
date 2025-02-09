@@ -7,6 +7,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.*;
+import net.minecraft.entity.effect.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.projectile.*;
 import net.minecraft.item.*;
@@ -31,8 +32,8 @@ public class DoomBloomBlock extends FlowerBlock implements Fertilizable, Explosi
 	protected static final VoxelShape SHAPE = Block.createCuboidShape(4.0, 0.0, 4.0, 12.0, 9.0, 12.0);
 	protected static final double GROW_CHANCE = 0.2;
 	
-	public DoomBloomBlock(Settings settings) {
-		super(SpectrumStatusEffects.STIFFNESS, 8, settings);
+	public DoomBloomBlock(StatusEffect suspiciousStewEffect, int effectDuration, Settings settings) {
+		super(suspiciousStewEffect, effectDuration, settings);
 	}
 	
 	@Override
@@ -58,12 +59,14 @@ public class DoomBloomBlock extends FlowerBlock implements Fertilizable, Explosi
 	
 	@Override
 	public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-		return random.nextFloat() > GROW_CHANCE;
+		return true;
 	}
 	
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		grow(world, random, pos, state);
+		if (random.nextFloat() > GROW_CHANCE) {
+			grow(world, random, pos, state);
+		}
 	}
 	
 	@Override
@@ -108,19 +111,15 @@ public class DoomBloomBlock extends FlowerBlock implements Fertilizable, Explosi
 	public void beforeDestroyedByExplosion(World world, BlockPos pos, BlockState state, Explosion explosion) {
 		explode(world, pos, state);
 	}
-
-	@Override
-	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-		super.onSteppedOn(world, pos, state, entity);
-		if (entity.isSprinting() && world.random.nextBoolean()) {
-			explode(world, pos, state);
-		}
-	}
 	
 	@Override
-	public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-		super.onLandedUpon(world, state, pos, entity, fallDistance);
-		explode(world, pos, state);
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+		if (!world.isClient()) {
+			var velocity = entity.getVelocity().length();
+			if (velocity > 0.235 && world.random.nextInt(20) <= velocity * 20 || entity.isOnFire()) {
+				explode(world, pos, state);
+			}
+		}
 	}
 	
 	@Override

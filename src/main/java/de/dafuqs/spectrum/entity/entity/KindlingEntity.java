@@ -95,9 +95,9 @@ public class KindlingEntity extends AbstractHorseEntity implements RangedAttackM
 	protected void initGoals() {
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new HorseBondWithPlayerGoal(this, 1.4));
-		this.goalSelector.add(2, new PounceAtTargetGoal(this, 0.2F));
+		this.goalSelector.add(2, new PounceAtTargetGoal(this, 0.5F));
+		this.goalSelector.add(3, new CancellableProjectileAttackGoal(this, 1.25, 30, 20.0F));
 		this.goalSelector.add(3, new MeleeChaseGoal(this));
-		this.goalSelector.add(4, new CancellableProjectileAttackGoal(this, 1.25, 40, 20.0F));
 		this.goalSelector.add(5, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(6, new PlayRoughGoal(this));
 		this.goalSelector.add(7, new TemptGoal(this, 1.25, FOOD, false));
@@ -136,7 +136,7 @@ public class KindlingEntity extends AbstractHorseEntity implements RangedAttackM
 			
 			switch (this.getPose()) {
 				case STANDING -> this.standingAnimationState.start(this.age);
-				case DIGGING -> this.walkingAnimationState.start(this.age);
+				case SNIFFING -> this.walkingAnimationState.start(this.age);
 				case ROARING -> this.standingAngryAnimationState.start(this.age);
 				case EMERGING -> this.walkingAngryAnimationState.start(this.age);
 				case FALL_FLYING -> this.glidingAnimationState.start(this.age);
@@ -392,6 +392,10 @@ public class KindlingEntity extends AbstractHorseEntity implements RangedAttackM
 			var distance = Math.sqrt(transmutePos.getSquaredDistance(getBlockPos()));
 			if (distance <= 6 * blastMod || random.nextFloat() < 1 / ((distance - 6) / 3)) {
 				var candidate = world.getBlockState(transmutePos);
+				
+				// Do not the bedrock nor the claims
+				if (candidate.getHardness(world, transmutePos) < 0 || !GenericClaimModsCompat.canBreak(world, transmutePos, this))
+					continue;
 
 				if (candidate.isAir()) {
 					if (random.nextFloat() < 0.125F) {
@@ -465,11 +469,12 @@ public class KindlingEntity extends AbstractHorseEntity implements RangedAttackM
 	public void tickMovement() {
 		super.tickMovement();
 		
-		Vec3d vec3d = this.getVelocity();
-		if (!this.isOnGround() && vec3d.y < 0.0) {
-			this.setVelocity(vec3d.multiply(1.0, 0.6, 1.0));
+		Vec3d velocity = this.getVelocity();
+		boolean onGround = this.isOnGround();
+		if (!onGround && velocity.y < 0.0) {
+			this.setVelocity(velocity.multiply(1.0, 0.6, 1.0));
 		}
-		if (this.fallDistance < 0.2) {
+		if (onGround || this.fallDistance < 0.2) {
 			boolean isMoving = this.getX() - this.prevX != 0 || this.getZ() - this.prevZ != 0; // pretty ugly, but also triggers when being ridden
 			if (getAngerTime() > 0) {
 				this.setPose(isMoving ? EntityPose.EMERGING : EntityPose.ROARING);
@@ -757,7 +762,7 @@ public class KindlingEntity extends AbstractHorseEntity implements RangedAttackM
 	protected class MeleeChaseGoal extends MeleeAttackGoal {
 		
 		public MeleeChaseGoal(KindlingEntity kindling) {
-			super(kindling, 0.5F, true);
+			super(kindling, 0.6F, true);
 		}
 		
 		@Override
@@ -871,12 +876,12 @@ public class KindlingEntity extends AbstractHorseEntity implements RangedAttackM
 		
 		@Override
 		public boolean shouldContinue() {
-			return KindlingEntity.this.hasAngerTime() && super.shouldContinue() && distanceTo(getProjectileTarget()) > 5F;
+			return KindlingEntity.this.hasAngerTime() && super.shouldContinue() && distanceTo(getProjectileTarget()) > 3F;
 		}
 		
 		@Override
 		public boolean canStart() {
-			return super.canStart() && !isPlaying() && distanceTo(getProjectileTarget()) > 6F;
+			return super.canStart() && !isPlaying() && distanceTo(getProjectileTarget()) > 4F;
 		}
 		
 		protected LivingEntity getProjectileTarget() {

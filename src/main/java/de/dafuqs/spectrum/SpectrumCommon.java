@@ -16,7 +16,6 @@ import de.dafuqs.spectrum.networking.*;
 import de.dafuqs.spectrum.particle.*;
 import de.dafuqs.spectrum.progression.*;
 import de.dafuqs.spectrum.registries.*;
-import de.dafuqs.spectrum.spells.*;
 import me.shedaniel.autoconfig.*;
 import me.shedaniel.autoconfig.serializer.*;
 import net.fabricmc.api.*;
@@ -24,6 +23,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.*;
 import net.fabricmc.fabric.api.resource.*;
 import net.fabricmc.fabric.api.transfer.v1.fluid.*;
 import net.fabricmc.fabric.api.transfer.v1.item.*;
+import net.fabricmc.fabric.api.transfer.v1.storage.*;
 import net.fabricmc.loader.api.*;
 import net.minecraft.item.*;
 import net.minecraft.recipe.*;
@@ -100,8 +100,6 @@ public class SpectrumCommon implements ModInitializer {
 		SpectrumParticleTypes.register();
 		logInfo("Registering Sound Events...");
 		SpectrumSoundEvents.register();
-		logInfo("Registering Music...");
-		SpectrumMusicType.register();
 		logInfo("Registering BlockSound Groups...");
 		SpectrumBlockSoundGroups.register();
 		logInfo("Registering Fluids...");
@@ -210,9 +208,6 @@ public class SpectrumCommon implements ModInitializer {
 		SpectrumGameEvents.register();
 		SpectrumPositionSources.register();
 		
-		logInfo("Registering Spell Effects...");
-		InkSpellEffects.register();
-		
 		logInfo("Registering Explosion Effects & Providers...");
 		ExplosionModifiers.register();
 		ExplosionModifierProviders.register();
@@ -236,6 +231,8 @@ public class SpectrumCommon implements ModInitializer {
 		SpectrumTreeDecoratorTypes.register();
 		
 		//noinspection UnstableApiUsage
+		ItemStorage.SIDED.registerForBlockEntity((be, d) -> Storage.empty(), SpectrumBlockEntities.HEARTBOUND_CHEST);
+		//noinspection UnstableApiUsage
 		ItemStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.storage, SpectrumBlockEntities.BOTTOMLESS_BUNDLE);
 		//noinspection UnstableApiUsage
 		FluidStorage.SIDED.registerForBlockEntity((blockEntity, direction) -> blockEntity.fluidStorage, SpectrumBlockEntities.FUSION_SHRINE);
@@ -247,8 +244,8 @@ public class SpectrumCommon implements ModInitializer {
 		Optional<ModContainer> modContainer = FabricLoader.getInstance().getModContainer(SpectrumCommon.MOD_ID);
 		if (modContainer.isPresent()) {
 			ResourceManagerHelper.registerBuiltinResourcePack(locate("spectrum_style_amethyst"), modContainer.get(), Text.of("Spectrum Style Amethyst"), ResourcePackActivationType.NORMAL);
+			ResourceManagerHelper.registerBuiltinResourcePack(locate("spectrum_generation_1"), modContainer.get(), Text.of("Generation 1 Spectrum textures"), ResourcePackActivationType.NORMAL);
 			ResourceManagerHelper.registerBuiltinResourcePack(locate("spectrum_programmer_art"), modContainer.get(), Text.of("Spectrum's Programmer Art"), ResourcePackActivationType.NORMAL);
-			//ResourceManagerHelper.registerBuiltinResourcePack(locate("jinc"), modContainer.get(), Text.of("Alternate Spectrum textures"), ResourcePackActivationType.NORMAL);
 		}
 		
 		logInfo("Common startup completed!");

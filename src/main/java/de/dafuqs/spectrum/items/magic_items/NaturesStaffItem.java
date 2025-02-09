@@ -49,14 +49,14 @@ public class NaturesStaffItem extends Item implements ExtendedEnchantable, InkPo
 		int efficiencyLevel = EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, itemStack);
 		if (efficiencyLevel == 0) {
 			if (InkPowered.canUseClient()) {
-				tooltip.add(Text.translatable("item.spectrum.natures_staff.tooltip_with_ink", INK_COST.getColor().getInkName()));
+				tooltip.add(Text.translatable("item.spectrum.natures_staff.tooltip_with_ink", INK_COST.getColor().getColoredInkName()));
 			} else {
 				tooltip.add(Text.translatable("item.spectrum.natures_staff.tooltip"));
 			}
 		} else {
 			int chancePercent = (int) (getInkCostMod(itemStack) * 100);
 			if (InkPowered.canUseClient()) {
-				tooltip.add(Text.translatable("item.spectrum.natures_staff.tooltip_with_ink_and_chance", INK_COST.getColor().getInkName(), chancePercent));
+				tooltip.add(Text.translatable("item.spectrum.natures_staff.tooltip_with_ink_and_chance", INK_COST.getColor().getColoredInkName(), chancePercent));
 			} else {
 				tooltip.add(Text.translatable("item.spectrum.natures_staff.tooltip_with_chance", chancePercent));
 			}
@@ -97,7 +97,6 @@ public class NaturesStaffItem extends Item implements ExtendedEnchantable, InkPo
 		if (remainingUseTicks % 10 != 0) {
 			return;
 		}
-
 		if (!(user instanceof PlayerEntity player)) {
 			user.stopUsingItem();
 			return;
@@ -106,26 +105,11 @@ public class NaturesStaffItem extends Item implements ExtendedEnchantable, InkPo
 			user.stopUsingItem();
 		}
 		
-		if (world.isClient) {
-			usageTickClient(user);
-		}
-	}
-	
-	@Environment(EnvType.CLIENT)
-	@SuppressWarnings("resource")
-	public void usageTickClient(LivingEntity user) {
-		// Simple equality check to make sure this method doesn't execute on other clients.
-		// Always true if the current player is the one wielding the staff under normal circumstances.
-		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.player != user) {
-			return;
-		}
-		if (client.crosshairTarget.getType() == HitResult.Type.BLOCK) {
-			client.interactionManager.interactBlock(
-					client.player,
-					client.player.getActiveHand(),
-					(BlockHitResult) client.crosshairTarget
-			);
+		if (!world.isClient) {
+			HitResult hitResult = Support.playerInteractionRaycast(world, user, player);
+			if (hitResult.getType() == HitResult.Type.BLOCK) {
+				useOnBlock(new ItemUsageContext(world, player, player.getActiveHand(), player.getStackInHand(player.getActiveHand()), (BlockHitResult) hitResult));
+			}
 		}
 	}
 	

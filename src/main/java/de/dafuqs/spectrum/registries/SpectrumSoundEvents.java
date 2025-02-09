@@ -8,10 +8,19 @@ import net.minecraft.util.*;
 public class SpectrumSoundEvents {
 	
 	// Music
-	public static final SoundEvent SPECTRUM_THEME = register("music.spectrum_theme");
-	public static final SoundEvent BOSS_THEME = register("music.boss_theme");
-	public static final SoundEvent DEEPER_DOWN = register("music.deeper_down");
-	public static final SoundEvent DIVINITY = register("music.divinity");
+	public static final SoundEvent MUSIC_DISCOVERY = register("music.discovery");
+	public static final SoundEvent MUSIC_CREDITS = register("music.credits");
+	public static final SoundEvent MUSIC_DIVINITY = register("music.divinity");
+	
+	// Music referenced in the biome.jsons
+	public static final SoundEvent MUSIC_DEEPER_DOWN_BLACK_LANGAST = register("music.deeper_down.black_langast");
+	public static final SoundEvent MUSIC_DEEPER_DOWN_CRYSTAL_GARDENS = register("music.deeper_down.crystal_gardens");
+	public static final SoundEvent MUSIC_DEEPER_DOWN_DEEP_BARRENS = register("music.deeper_down.deep_barrens");
+	public static final SoundEvent MUSIC_DEEPER_DOWN_DEEP_DRIPSTONE_CAVES = register("music.deeper_down.deep_dripstone_caves");
+	public static final SoundEvent MUSIC_DEEPER_DOWN_DRAGONROT_SWAMP = register("music.deeper_down.dragonrot_swamp");
+	public static final SoundEvent MUSIC_DEEPER_DOWN_HOWLING_SPIRES = register("music.deeper_down.howling_spires");
+	public static final SoundEvent MUSIC_DEEPER_DOWN_NOXSHROOM_FOREST = register("music.deeper_down.noxshroom_forest");
+	public static final SoundEvent MUSIC_DEEPER_DOWN_RAZOR_EDGE = register("music.deeper_down.razor_edge");
 	
 	// Sounds
 	public static final SoundEvent PEDESTAL_CRAFTING = register("pedestal_crafting");
@@ -33,11 +42,14 @@ public class SpectrumSoundEvents {
 	public static final SoundEvent MOONSTONE_STRIKE = register("moonstone_strike");
 	public static final SoundEvent ENTITY_BLOCK_FLOODER_THROW = register("entity.block_flooder.throw");
 	public static final SoundEvent OMNI_ACCELERATOR_SHOOT = register("item.omni_accelerator.shoot");
+	public static final SoundEvent REDSTONE_MECHANISM_TRIGGER = register("block.redstone_mechanism.trigger");
+	public static final SoundEvent REDSTONE_MECHANISM_BREAK_BLOCK = register("block.redstone_mechanism.break_block");
 
 	public static final SoundEvent GUIDEBOOK_PAGES = register("item.guidebook.pages");
 
 	public static final SoundEvent ENCHANTER_WORKING = register("enchanter_working");
-	public static final SoundEvent ENCHANTER_DING = register("enchanter_ding");
+	public static final SoundEvent ENCHANTER_FINISH = register("enchanter_finish");
+	public static final SoundEvent CRAFTING_DING = register("crafting_ding");
 	
 	public static final SoundEvent SPIRIT_INSTILLER_CRAFTING = register("spirit_instiller_crafting");
 	public static final SoundEvent SPIRIT_INSTILLER_CRAFTING_FINISHED = register("spirit_instiller_crafting_finished");
@@ -77,12 +89,18 @@ public class SpectrumSoundEvents {
 	
 	public static final SoundEvent ELECTRIC_DISCHARGE = register("discharge");
 
+	public static final SoundEvent PERFECT_PARRY = register("perfect_parry");
+	public static final SoundEvent LUNGE = register("lunge");
+	public static final SoundEvent LUNGE_CRIT = register("lunge_crit");
+	public static final SoundEvent SWORD_BLOCK = register("sword_block");
+
 
 	public static final SoundEvent INCANDESCENT_CHARGE = register("incandescent_charge");
 	public static final SoundEvent INCANDESCENT_ARM = register("incandescent_arm");
 
 	public static final SoundEvent SHOOTING_STAR_CRACKER = register("shooting_star_cracker");
 	public static final SoundEvent PRIMORDIAL_FIRE_CRACKLE = register("primordial_fire_crackle");
+	public static final SoundEvent PRIMORDIAL_FIRE_DOT = register("primordial_fire_dot");
 	public static final SoundEvent TEXT_REVEALED = register("spectrum.ui.text_revealed");
 	public static final SoundEvent USE_FAIL = register("use_fail");
 	public static final SoundEvent NEW_REVELATION = register("spectrum.ui.new_revelation");

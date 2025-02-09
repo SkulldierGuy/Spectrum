@@ -218,8 +218,8 @@ public class SpectrumS2CPacketSender {
 		buf.writeUuid(network.getUUID());
 		buf.writeInt(travelTime);
 		PastelTransmission.writeToBuf(buf, transmission);
-	
-		for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) network.getWorld(), transmission.getStartPos())) {
+		
+		for (ServerPlayerEntity player : PlayerLookup.tracking(network.getWorld(), transmission.getStartPos())) {
 			ServerPlayNetworking.send(player, SpectrumS2CPackets.PASTEL_TRANSMISSION, buf);
 		}
 	}
@@ -371,20 +371,6 @@ public class SpectrumS2CPacketSender {
 		ServerPlayNetworking.send(player, SpectrumS2CPackets.INK_COLOR_SELECTED, packetByteBuf);
 	}
 	
-	public static void playInkEffectParticles(ServerWorld serverWorld, InkColor inkColor, Vec3d effectPos, float potency) {
-		PacketByteBuf packetByteBuf = PacketByteBufs.create();
-		packetByteBuf.writeIdentifier(inkColor.getID());
-		packetByteBuf.writeDouble(effectPos.x);
-		packetByteBuf.writeDouble(effectPos.y);
-		packetByteBuf.writeDouble(effectPos.z);
-		packetByteBuf.writeFloat(potency);
-		
-		// Iterate over all players tracking a position in the world and send the packet to each player
-		for (ServerPlayerEntity player : PlayerLookup.tracking(serverWorld, BlockPos.ofFloored(effectPos))) {
-			ServerPlayNetworking.send(player, SpectrumS2CPackets.PLAY_INK_EFFECT_PARTICLES, packetByteBuf);
-		}
-	}
-	
 	public static void playPresentOpeningParticles(ServerWorld serverWorld, BlockPos pos, Map<DyeColor, Integer> colors) {
 		PacketByteBuf packetByteBuf = PacketByteBufs.create();
 		packetByteBuf.writeBlockPos(pos);
@@ -434,7 +420,8 @@ public class SpectrumS2CPacketSender {
 		buf.writeDouble(value);
 		ServerPlayNetworking.send(player, SpectrumS2CPackets.SYNC_MENTAL_PRESENCE, buf);
 	}
-
+	
+	// TODO: this kills the TPS, since it runs every tick
 	public static void sendCompactingChestStatusUpdate(CompactingChestBlockEntity chest) {
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(chest.getPos());
@@ -444,7 +431,8 @@ public class SpectrumS2CPacketSender {
 			ServerPlayNetworking.send(player, SpectrumS2CPackets.COMPACTING_CHEST_STATUS_UPDATE, buf);
 		}
 	}
-
+	
+	// TODO: this kills the TPS, since it runs every tick
 	public static void sendRestockingChestStatusUpdate(RestockingChestBlockEntity chest) {
 		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeBlockPos(chest.getPos());
@@ -459,7 +447,8 @@ public class SpectrumS2CPacketSender {
 			ServerPlayNetworking.send(player, SpectrumS2CPackets.RESTOCKING_CHEST_STATUS_UPDATE, buf);
 		}
 	}
-
+	
+	// TODO: this kills the TPS, since it runs every tick
 	public static void sendBlackHoleChestUpdate(BlackHoleChestBlockEntity chest) {
 		var xpStack = chest.getStack(BlackHoleChestBlockEntity.EXPERIENCE_STORAGE_PROVIDER_ITEM_SLOT);
 
@@ -501,5 +490,24 @@ public class SpectrumS2CPacketSender {
 			ServerPlayNetworking.send(player, SpectrumS2CPackets.PASTEL_NODE_STATUS_UPDATE, buf);
 		}
 	}
-
+	
+	public static void syncPastelNetworkEdges(ServerPastelNetwork serverPastelNetwork, BlockPos pos) {
+		PacketByteBuf buf = PacketByteBufs.create();
+		buf.writeUuid(serverPastelNetwork.getUUID());
+		buf.writeNbt(serverPastelNetwork.graphToNbt());
+		
+		for (ServerPlayerEntity player : PlayerLookup.tracking(serverPastelNetwork.getWorld(), pos)) {
+			ServerPlayNetworking.send(player, SpectrumS2CPackets.PASTEL_NETWORK_EDGE_SYNC, buf);
+		}
+	}
+	
+	public static void syncPastelNetworkRemoved(ServerPastelNetwork network) {
+		PacketByteBuf buf = PacketByteBufs.create();
+		buf.writeUuid(network.getUUID());
+		
+		for (ServerPlayerEntity player : PlayerLookup.all(network.getWorld().getServer())) {
+			ServerPlayNetworking.send(player, SpectrumS2CPackets.PASTEL_NETWORK_REMOVED, buf);
+		}
+	}
+	
 }

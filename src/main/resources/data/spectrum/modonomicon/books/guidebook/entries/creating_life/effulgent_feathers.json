@@ -3,7 +3,7 @@
   "icon": "spectrum:effulgent_feather",
   "condition": {
     "type": "modonomicon:advancement",
-    "advancement_id": "spectrum:unlocks/blocks/kindling_memory"
+    "advancement_id": "spectrum:pluck_effulgent_feather"
   },
   "category": "spectrum:creating_life",
   "hide_while_locked": true,
@@ -28,10 +28,6 @@
     },
     {
       "type": "spectrum:liquid_crystal_converting",
-      "condition": {
-        "type": "modonomicon:advancement",
-        "advancement_id": "spectrum:hidden/collect_raw_bloodstone"
-      },
       "title": "book.spectrum.guidebook.effulgent_feathers.page1.title",
       "recipe_id": "spectrum:liquid_crystal_converting/raw_bloodstone",
       "text": "book.spectrum.guidebook.effulgent_feathers.page1.text"

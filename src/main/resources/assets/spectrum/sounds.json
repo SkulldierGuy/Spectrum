@@ -17,6 +17,33 @@
       "spectrum:use_fail"
     ]
   },
+	"block.redstone_mechanism.trigger": {
+		"subtitle": "spectrum.subtitles.block.redstone_mechanism.trigger",
+		"sounds": [
+			"minecraft:random/click"
+		]
+	},
+	"block.redstone_mechanism.break_block": {
+		"subtitle": "spectrum.subtitles.block.redstone_mechanism.break_block",
+		"sounds": [
+			{
+				"name": "minecraft:block/iron_trapdoor/open1",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:block/iron_trapdoor/open2",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:block/iron_trapdoor/open3",
+				"volume": 0.9
+			},
+			{
+				"name": "minecraft:block/iron_trapdoor/open4",
+				"volume": 0.9
+			}
+		]
+	},
   "paintbrush_trigger": {
     "subtitle": "spectrum.subtitles.paintbrush_trigger",
     "sounds": [
@@ -71,6 +98,26 @@
   "discharge": {
     "sounds": [
       "spectrum:discharge"
+    ]
+  },
+  "lunge_crit": {
+    "sounds": [
+      "spectrum:lunge_crit"
+    ]
+  },
+  "lunge": {
+    "sounds": [
+      "spectrum:lunge"
+    ]
+  },
+  "perfect_parry": {
+    "sounds": [
+      "spectrum:perfect_parry"
+    ]
+  },
+  "sword_block": {
+    "sounds": [
+      "spectrum:sword_block"
     ]
   },
   "paintbrush_paint": {
@@ -271,7 +318,13 @@
       "spectrum:deeper_down_portal_open"
     ]
   },
-  "enchanter_ding": {
+	"enchanter_finish": {
+		"subtitle": "spectrum.subtitles.enchanter_finish",
+		"sounds": [
+			"minecraft:random/levelup"
+		]
+	},
+	"crafting_ding": {
     "sounds": [
       "spectrum:enchanter_ding"
     ]
@@ -373,16 +426,19 @@
   "primordial_fire_crackle": {
     "subtitle": "spectrum.subtitles.primordial_fire_crackle",
     "sounds": [
-      "spectrum:cracker1",
-      "spectrum:cracker2",
-      "spectrum:cracker3",
-      "spectrum:cracker4",
-      "spectrum:cracker5",
-      "spectrum:cracker6",
-      "spectrum:cracker7",
-      "spectrum:cracker8"
+			"spectrum:primfire0",
+			"spectrum:primfire1",
+			"spectrum:primfire2",
+			"spectrum:primfire3",
+			"spectrum:primfire4"
     ]
   },
+	"primordial_fire_dot": {
+		"subtitle": "spectrum.subtitles.primordial_fire_dot",
+		"sounds": [
+			"spectrum:primfire_dot"
+		]
+	},
   "radiance_staff_charging": {
     "subtitle": "spectrum.subtitles.radiance_staff_charging",
     "sounds": [
@@ -449,28 +505,19 @@
       "spectrum:block.ruin.place"
     ]
   },
-  "music.spectrum_theme": {
-    "subtitle": "spectrum.subtitles.spectrum_theme_plays",
+
+  "music.discovery": {
     "sounds": [
       {
-        "name": "spectrum:music/spectrum_theme",
+        "name": "spectrum:music/davejf_the_mist",
         "stream": true
       }
     ]
   },
-  "music.boss_theme": {
-    "subtitle": "spectrum.subtitles.boss_theme_plays",
+  "music.credits": {
     "sounds": [
       {
         "name": "spectrum:music/radiarc_irrelevance_fading",
-        "stream": true
-      }
-    ]
-  },
-  "music.deeper_down": {
-    "sounds": [
-      {
-        "name": "spectrum:music/sunsette_darker_than_hell",
         "stream": true
       }
     ]
@@ -483,6 +530,168 @@
       }
     ]
   },
+
+  "music.deeper_down.black_langast": {
+    "sounds": [
+      {
+        "name": "spectrum:music/sunsette_darker_than_hell",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_home",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_finality",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_submerged",
+        "stream": true
+      }
+    ]
+  },
+  "music.deeper_down.crystal_gardens": {
+    "sounds": [
+      {
+        "name": "spectrum:music/sunsette_darker_than_hell",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_circumstance",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_uncertainty",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_submerged",
+        "stream": true
+      }
+    ]
+  },
+  "music.deeper_down.deep_barrens": {
+    "sounds": [
+      {
+        "name": "spectrum:music/sunsette_darker_than_hell",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_despite",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_home",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_amnion",
+        "stream": true
+      }
+    ]
+  },
+  "music.deeper_down.deep_dripstone_caves": {
+    "sounds": [
+      {
+        "name": "spectrum:music/radiarc_circumstance",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_uncertainty",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_amnion",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_amble",
+        "stream": true
+      }
+    ]
+  },
+  "music.deeper_down.dragonrot_swamp": {
+    "sounds": [
+      {
+        "name": "spectrum:music/sunsette_darker_than_hell",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_home",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_finality",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_amnion",
+        "stream": true
+      }
+    ]
+  },
+  "music.deeper_down.howling_spires": {
+    "sounds": [
+      {
+        "name": "spectrum:music/radiarc_finality",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_despite",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_uncertainty",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_submerged",
+        "stream": true
+      }
+    ]
+  },
+  "music.deeper_down.noxshroom_forest": {
+    "sounds": [
+      {
+        "name": "spectrum:music/sunsette_darker_than_hell",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_despite",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_amble",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_amnion",
+        "stream": true
+      }
+    ]
+  },
+  "music.deeper_down.razor_edge": {
+    "sounds": [
+      {
+        "name": "spectrum:music/sunsette_darker_than_hell",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_despite",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_submerged",
+        "stream": true
+      },
+      {
+        "name": "spectrum:music/radiarc_amble",
+        "stream": true
+      }
+    ]
+  },
+
   "spectrum.ui.new_revelation": {
     "sounds": [
       "spectrum:new_revelation"
