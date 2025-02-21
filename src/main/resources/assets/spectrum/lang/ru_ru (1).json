@@ -2134,7 +2134,7 @@
   "block.spectrum.zombified_piglin_head": "Голова Зомбифицированного Пиглина",
 
   "book.spectrum.guidebook.abyssal_vines.page0.text": "Serpentine stalks and glowing fruit make for an awfully familiar sight. Though dimmer and leafier, it is easy to see that these hanging vines are related to glow berries.\\\nGiven their paleness and crystalline aura, I guess that centuries of darkness and feeding on [Liquid Crystal](entry://general/liquid_crystal) transformed them into something that feels at home in the cool twilight of the abyss.",
-  "book.spectrum.guidebook.abyssal_vines.page1.text": "*Touch fuzzy get dizzy*",
+  "book.spectrum.guidebook.abyssal_vines.page1.text": "*Нечёткое касание и головокружение*",
   "book.spectrum.guidebook.abyssal_vines.page1.title": "Fuzzy Leaves",
   "book.spectrum.guidebook.abyssal_vines.page2.text": "Naturally, these vines also bear fruit, but it is weirder than I expected. What at first seemed like two berries turned out to be one singular drupe split into two large, plump lobes.\\\nTheir flavor is complex, pungent, and aromatic; a strong sweet and nutty taste is underlined by notes of pine and musk - I think I can even taste some floral notes!",
   "book.spectrum.guidebook.abyssal_vines.page2.title": "Fissure Plums",
@@ -4016,13 +4016,13 @@
   "book.spectrum.guidebook.whispy_circlet.page0.text": "The bags under my eyes aren't the only evidence of my recent sleep deprivation. There are these creatures that emerged straight from the nightmares I skipped - almost as if they feel cheated.\\\n\\\nA countersolution: This manifestation of relaxation, no sleep necessary.",
   "book.spectrum.guidebook.whispy_circlet.page1.text": "After just a few minutes of waring it, I feel physically and mentally refreshed and recover more quickly from any negative effects.\\\n\\\n*The pleasures of a good night's sleep.*",
 
-  "commands.spectrum.primordial_fire.put_on.success": "Set %d entities on fire",
-  "commands.spectrum.primordial_fire.put_out.success": "Extinguished %d entities",
-  "commands.spectrum.progression_sanity.success": "Printed the sanity checks findings to the servers console",
-  "commands.spectrum.spawn_shooting_star.success": "Spawned %d shooting stars for each player",
+  "commands.spectrum.primordial_fire.put_on.success": "Подожжено %d существ",
+  "commands.spectrum.primordial_fire.put_out.success": "Потушено %d существ",
+  "commands.spectrum.progression_sanity.success": "Результаты проверки рассудка отправлены в консоль сервера",
+  "commands.spectrum.spawn_shooting_star.success": "Создано %d звёзд для каждого игрока",
 
-  "container.spectrum.bedrock_anvil": "Repair & Customize",
-  "container.spectrum.bedrock_anvil.lore": "Lore:",
+  "container.spectrum.bedrock_anvil": "Починить & Украсить",
+  "container.spectrum.bedrock_anvil.lore": "Описание:",
   "container.spectrum.bedrock_anvil.tooltip": "Indestructible. Free renaming, unlimited",
   "container.spectrum.bedrock_anvil.tooltip2": "repair cap & able to add Lore to Items",
 	"container.spectrum.bedrock_anvil.tooltip3": "Add pigment to items to color their name",
